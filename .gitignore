@@ -1,0 +1,56 @@
+############################################
+# Visual Studio / .NET Core
+############################################
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build
+bin/
+obj/
+out/
+TestResults/
+*.log
+*.tlog
+*.cache
+
+# Config locali e database
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+secrets.json
+*.db
+*.mdf
+*.ldf
+
+############################################
+# React + Vite (FrontEnd)
+############################################
+node_modules/
+dist/
+.vite/
+
+# File di configurazione ambiente
+.env.local
+.env.*.local
+*.tsbuildinfo
+
+# Lock files (facoltativo ignorarli)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Log Node/NPM
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+############################################
+# OS / IDE vari
+############################################
+*.DS_Store
+*.Thumbs.db
+.idea/
