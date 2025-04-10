@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using EcommerceSportTravelBE.Models;
+using EcommerceSportTravelBE.Data;
+using EcommerceSportTravelBE.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +17,7 @@ builder.Services.AddControllers();
 // DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<EcommerceDbContext>(options =>
     options.UseSqlServer(connectionString)
 );
 
@@ -31,7 +34,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     options.Password.RequireUppercase = identitySettings.RequireUppercase;
 })
 .AddRoles<ApplicationRole>()
-.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddEntityFrameworkStores<EcommerceDbContext>()
 .AddDefaultTokenProviders();
 
 // JWT Authentication
