@@ -27,6 +27,9 @@ namespace EcommerceSportTravelBE.Models
         [ForeignKey("Citta")]
         public Guid CittaId { get; set; }
 
+        [Required]
+        public DurataPacchetto Durata { get; set; }
+
         public bool Disponibile { get; set; }
 
         public Partita Partita { get; set; }

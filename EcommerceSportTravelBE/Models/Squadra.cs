@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcommerceSportTravelBE.Models
 {
@@ -19,6 +20,10 @@ namespace EcommerceSportTravelBE.Models
 
         [MaxLength(50)]
         public string? ColoreMaglia { get; set; }
+
+        [ForeignKey("Citta")]
+        public Guid? CittaId { get; set; }
+        public Citta? Citta { get; set; }
 
         public ICollection<Partita> PartiteCasa { get; set; }
         public ICollection<Partita> PartiteOspite { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace EcommerceSportTravelBE.DTOs.Partita
 {
-    public class PartitaGetDto
+    public class PartitaReadDto
     {
         public Guid Id { get; set; }
         public string SquadraCasa { get; set; }
