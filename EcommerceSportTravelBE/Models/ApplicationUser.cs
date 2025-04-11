@@ -14,7 +14,7 @@ namespace EcommerceSportTravelBE.Models
         public string Name { get; set; }
 
         [Required]
-        public DateTime BirthDate { get; set; }
+        public DateOnly BirthDate { get; set; }
 
         public ICollection<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
