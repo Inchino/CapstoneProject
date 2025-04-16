@@ -6,6 +6,11 @@
         public string Nome { get; set; }
         public string? Regione { get; set; }
         public string? DescrizioneTuristica { get; set; }
+
+        // dettagli extra
+        public int NumeroPartite { get; set; }
+        public int NumeroPacchetti { get; set; }
     }
+
 
 }

@@ -1,4 +1,6 @@
-﻿namespace EcommerceSportTravelBE.DTOs.Partita
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceSportTravelBE.DTOs.Partita
 {
     public class PartitaCreateDto
     {

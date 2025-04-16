@@ -1,26 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EcommerceSportTravelBE.DTOs.Squadra
+﻿namespace EcommerceSportTravelBE.DTOs.Squadra
 {
-    public class SquadraUpdateDto
+    public class SquadraReadDto
     {
-        [Required]
         public Guid Id { get; set; }
-
-        [Required]
-        [MaxLength(100)]
         public string Nome { get; set; }
 
-        [MaxLength(200)]
         public string? LogoUrl { get; set; }
-
-        [MaxLength(100)]
         public string? Stadio { get; set; }
-
-        [MaxLength(50)]
         public string? ColoreMaglia { get; set; }
 
         public Guid? CittaId { get; set; }
+        public string? CittaNome { get; set; }
     }
 
 }
