@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using EcommerceSportTravelBE.Models;
 using EcommerceSportTravelBE.Data;
 using EcommerceSportTravelBE.Settings;
+using EcommerceSportTravelBE.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +60,16 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Services
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>>();
+builder.Services.AddScoped<PacchettoViaggioService>();
+builder.Services.AddScoped<PrenotazioneService>();
+builder.Services.AddScoped<PartitaService>();
+builder.Services.AddScoped<SquadraService>();
+builder.Services.AddScoped<CittaService>();
+
+// Controllers
+builder.Services.AddControllers();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
