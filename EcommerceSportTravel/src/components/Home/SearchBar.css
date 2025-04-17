@@ -1,0 +1,28 @@
+.search-bar {
+    background-color: #1b3a2f;
+    color: #fdf6e3;
+  }
+  
+  .search-bar select,
+  .search-bar input {
+    background-color: #fdf6e3;
+    color: #1b3a2f;
+    border: none;
+  }
+  
+  .search-bar select:focus,
+  .search-bar input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #d4af37;
+  }
+  
+  .search-bar button {
+    background-color: #d4af37;
+    border: none;
+    color: #1b3a2f;
+  }
+  
+  .search-bar button:hover {
+    background-color: #c9a32f;
+  }
+  

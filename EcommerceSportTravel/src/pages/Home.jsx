@@ -1,9 +1,12 @@
-import { Container } from "react-bootstrap";
-import HeroSection from "../components/HeroSection";
+import HeroSection from "../components/Home/HeroSection";
+import SearchBar from "../components/Home/SearchBar";
 
 function Home() {
     return (
-        <HeroSection />
+      <>
+      <HeroSection />
+      <SearchBar />
+      </>
     );
   }
   
