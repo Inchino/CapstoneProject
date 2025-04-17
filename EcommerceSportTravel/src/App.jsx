@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Componenti comuni
 import MyNavBar from './components/MyNavbar';
+import MyFooter from './components/MyFooter';
 
 // Pagine pubbliche
 import Home from './pages/Home';
@@ -38,6 +39,7 @@ function App() {
         <Route path="/admin/packages" element={<AdminPackages />} />
         <Route path="/admin/packages/edit/:id" element={<AdminEditPackage />} />
       </Routes>
+      <MyFooter />
     </BrowserRouter>
   );
 }

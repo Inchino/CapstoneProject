@@ -1,0 +1,35 @@
+.footer-custom {
+    background-color: #1b3a2f; /* verde scuro */
+    color: #fdf6e3; /* crema */
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  .footer-custom .brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #fdf6e3;
+  }
+  
+  .footer-custom .desc {
+    font-size: 0.95rem;
+  }
+  
+  .footer-custom .section-title {
+    color: #d4af37; /* oro */
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  .footer-link {
+    color: #fdf6e3;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-link:hover {
+    color: #d4af37;
+  }
+  
