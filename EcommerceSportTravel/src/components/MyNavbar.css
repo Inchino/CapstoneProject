@@ -1,0 +1,22 @@
+/* Verde scuro di sfondo */
+.bg-custom {
+  background-color: #1b3a2f !important;
+}
+
+/* Testo crema per il brand */
+.brand-custom {
+  color: #fdf6e3 !important;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+/* Link stile crema + hover oro */
+.link-custom {
+  color: #fdf6e3 !important;
+  transition: color 0.3s ease;
+}
+
+.link-custom:hover,
+.link-custom.active {
+  color: #d4af37 !important; /* Oro */
+}
