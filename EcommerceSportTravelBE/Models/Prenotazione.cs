@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EcommerceSportTravelBE.Models
 {
@@ -15,11 +14,21 @@ namespace EcommerceSportTravelBE.Models
         public decimal PrezzoPagato { get; set; }
 
         [Required]
-        [ForeignKey("User")]
+        [Range(1, 10, ErrorMessage = "Il numero di partecipanti deve essere almeno 1 e massimo 10.")]
+        public int NumeroPartecipanti { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string StatoPrenotazione { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string MetodoPagamento { get; set; }
+
+        [Required]
         public string UserId { get; set; }
 
         [Required]
-        [ForeignKey("PacchettoViaggio")]
         public Guid PacchettoViaggioId { get; set; }
 
         public ApplicationUser User { get; set; }

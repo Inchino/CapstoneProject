@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcommerceSportTravelBE.Models
 {
@@ -12,24 +12,26 @@ namespace EcommerceSportTravelBE.Models
         public DateTime DataPartita { get; set; }
 
         [Required]
-        [ForeignKey("SquadraCasa")]
+        [MaxLength(100)]
+        public string Stadio { get; set; }
+
+        [Required]
         public Guid SquadraCasaId { get; set; }
 
         [Required]
-        [ForeignKey("SquadraOspite")]
         public Guid SquadraOspiteId { get; set; }
 
         [Required]
-        [ForeignKey("Citta")]
         public Guid CittaId { get; set; }
 
-        [MaxLength(100)]
-        public string? Stadio { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string Campionato { get; set; }
 
         public Squadra SquadraCasa { get; set; }
         public Squadra SquadraOspite { get; set; }
         public Citta Citta { get; set; }
 
-        public ICollection<PacchettoViaggio> Pacchetti { get; set; }
+        public ICollection<PacchettoViaggio> Pacchetti { get; set; } = new List<PacchettoViaggio>();
     }
 }

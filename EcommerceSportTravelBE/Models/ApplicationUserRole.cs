@@ -1,14 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using EcommerceSportTravelBE.Models;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcommerceSportTravelBE.Models
+public class ApplicationUserRole : IdentityUserRole<string>
 {
-    public class ApplicationUserRole : IdentityUserRole<string>
-    {
-        [ForeignKey(nameof(UserId))]
-        public ApplicationUser User { get; set; }
+    [ForeignKey(nameof(UserId))]
+    public ApplicationUser? User { get; set; }
 
-        [ForeignKey(nameof(RoleId))]
-        public ApplicationRole Role { get; set; }
-    }
+    [ForeignKey(nameof(RoleId))]
+    public ApplicationRole? Role { get; set; }
 }

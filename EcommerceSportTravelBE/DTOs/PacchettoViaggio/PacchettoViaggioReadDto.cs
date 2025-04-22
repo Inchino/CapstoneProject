@@ -8,8 +8,8 @@ namespace EcommerceSportTravelBE.DTOs.PacchettoViaggio
         public string Titolo { get; set; }
         public string Descrizione { get; set; }
         public decimal Prezzo { get; set; }
-
         public DurataPacchetto Durata { get; set; }
+        public string ImmagineUrl { get; set; }
 
         public Guid PartitaId { get; set; }
         public string PartitaDescrizione { get; set; }

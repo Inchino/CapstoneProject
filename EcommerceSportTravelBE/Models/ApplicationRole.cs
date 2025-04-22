@@ -4,6 +4,6 @@ namespace EcommerceSportTravelBE.Models
 {
     public class ApplicationRole : IdentityRole
     {
-        public ICollection<ApplicationUserRole> ApplicationUserRoles { get; set; }
+        public ICollection<ApplicationUserRole> ApplicationUserRoles { get; set; } = new List<ApplicationUserRole>();
     }
 }

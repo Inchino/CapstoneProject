@@ -11,14 +11,19 @@ namespace EcommerceSportTravelBE.Models
         [MaxLength(100)]
         public string Nome { get; set; }
 
+        [Required]
         [MaxLength(100)]
-        public string? Regione { get; set; }
+        public string Regione { get; set; }
 
+        [Required]
         [MaxLength(500)]
-        public string? DescrizioneTuristica { get; set; }
+        public string DescrizioneTuristica { get; set; }
 
-        public ICollection<Partita> Partite { get; set; }
-        public ICollection<PacchettoViaggio> Pacchetti { get; set; }
+        [Required]
+        [MaxLength(500)]
+        public string ImmagineUrl { get; set; }
+
+        public ICollection<Partita> Partite { get; set; } = new List<Partita>();
+        public ICollection<PacchettoViaggio> Pacchetti { get; set; } = new List<PacchettoViaggio>();
     }
-
 }

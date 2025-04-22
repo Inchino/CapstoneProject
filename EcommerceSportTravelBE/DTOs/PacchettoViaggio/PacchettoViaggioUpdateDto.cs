@@ -23,6 +23,9 @@ namespace EcommerceSportTravelBE.DTOs.PacchettoViaggio
         public DurataPacchetto Durata { get; set; }
 
         [Required]
+        public string ImmagineUrl { get; set; }
+
+        [Required]
         public Guid PartitaId { get; set; }
 
         [Required]
