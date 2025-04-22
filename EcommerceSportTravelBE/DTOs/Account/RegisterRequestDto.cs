@@ -1,12 +1,28 @@
-﻿namespace EcommerceSportTravelBE.DTOs.Account
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceSportTravelBE.DTOs.Account
 {
     public class RegisterRequestDto
     {
-        public required string Name { get; set; }
-        public required string Surname { get; set; }
-        public required DateOnly BirthDate { get; set; }
-        public required string Email { get; set; }
-        public required string Password { get; set; }
-        public required string Role { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string Name { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Surname { get; set; }
+
+        [Required]
+        public DateOnly BirthDate { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
+        [Required]
+        public string Role { get; set; }
     }
 }

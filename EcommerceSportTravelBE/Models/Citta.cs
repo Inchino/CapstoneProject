@@ -20,7 +20,7 @@ namespace EcommerceSportTravelBE.Models
         public string DescrizioneTuristica { get; set; }
 
         [Required]
-        [MaxLength(500)]
+        [Url]
         public string ImmagineUrl { get; set; }
 
         public ICollection<Partita> Partite { get; set; } = new List<Partita>();

@@ -11,6 +11,7 @@ public class Squadra
     public string Nome { get; set; }
 
     [Required]
+    [Url]
     public string LogoUrl { get; set; }
 
     [Required]

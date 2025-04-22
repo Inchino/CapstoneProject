@@ -16,8 +16,13 @@ namespace EcommerceSportTravelBE.DTOs.Partita
         [Required]
         public Guid CittaId { get; set; }
 
+        [Required]
         [MaxLength(100)]
-        public string? Stadio { get; set; }
+        public string Stadio { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Campionato { get; set; }
     }
 
 }

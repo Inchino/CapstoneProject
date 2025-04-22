@@ -1,11 +1,26 @@
-﻿namespace EcommerceSportTravelBE.DTOs.Account
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceSportTravelBE.DTOs.Account
 {
     public class UserDto
     {
-        public required string Id { get; set; }
-        public required string Name { get; set; }
-        public required string Surname { get; set; }
-        public required string Email { get; set; }
-        public required string Role { get; set; }
+        [Required]
+        public string Id { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Name { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Surname { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Role { get; set; }
     }
 }

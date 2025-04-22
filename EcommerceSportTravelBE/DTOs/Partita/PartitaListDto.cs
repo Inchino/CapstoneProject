@@ -1,4 +1,6 @@
-﻿namespace EcommerceSportTravelBE.DTOs.Partita
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceSportTravelBE.DTOs.Partita
 {
     public class PartitaListDto
     {
@@ -9,6 +11,10 @@
         public string SquadraOspiteNome { get; set; }
 
         public string CittaNome { get; set; }
+
+        public string Stadio { get; set; }
+
+        public string Campionato { get; set; }
     }
 
 }

@@ -23,6 +23,7 @@ namespace EcommerceSportTravelBE.DTOs.PacchettoViaggio
         public DurataPacchetto Durata { get; set; }
 
         [Required]
+        [Url]
         public string ImmagineUrl { get; set; }
 
         [Required]
@@ -31,7 +32,7 @@ namespace EcommerceSportTravelBE.DTOs.PacchettoViaggio
         [Required]
         public Guid CittaId { get; set; }
 
-        public bool Disponibile { get; set; }
+        public bool Disponibile { get; set; } = true;
     }
 
 }

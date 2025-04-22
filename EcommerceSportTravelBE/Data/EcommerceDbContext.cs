@@ -50,11 +50,19 @@ namespace EcommerceSportTravelBE.Data
                 .WithMany(s => s.PartiteOspite)
                 .HasForeignKey(p => p.SquadraOspiteId)
                 .OnDelete(DeleteBehavior.Restrict);
-          
+
+            // Relazioni PacchettoViaggio → Partita
             builder.Entity<PacchettoViaggio>()
                 .HasOne(p => p.Partita)
                 .WithMany(pa => pa.Pacchetti)
                 .HasForeignKey(p => p.PartitaId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relazione PacchettoViaggio → Citta
+            builder.Entity<PacchettoViaggio>()
+                .HasOne(p => p.Citta)
+                .WithMany(c => c.Pacchetti)
+                .HasForeignKey(p => p.CittaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
         }

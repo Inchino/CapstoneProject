@@ -18,6 +18,7 @@ public class PacchettoViaggio
     public decimal Prezzo { get; set; }
 
     [Required]
+    [Url]
     public string ImmagineUrl { get; set; }
 
     [Required]

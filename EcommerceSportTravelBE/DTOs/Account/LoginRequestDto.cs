@@ -1,8 +1,14 @@
-﻿namespace EcommerceSportTravelBE.DTOs.Account
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceSportTravelBE.DTOs.Account
 {
     public class LoginRequestDto
     {
-        public required string Email { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
         public required string Password { get; set; }
     }
 }

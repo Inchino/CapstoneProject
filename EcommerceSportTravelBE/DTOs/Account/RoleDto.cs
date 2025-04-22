@@ -1,7 +1,12 @@
-﻿namespace EcommerceSportTravelBE.DTOs.Account
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceSportTravelBE.DTOs.Account
 {
     public class RoleDto
     {
-        public required string RoleName { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string RoleName { get; set; }
+
     }
 }

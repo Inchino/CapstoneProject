@@ -8,6 +8,10 @@
 
         public string TitoloPacchetto { get; set; }
         public string CittaNome { get; set; }
+
+        public string StatoPrenotazione { get; set; }
+        public string NomeUtente { get; set; }
+        public string MetodoPagamento { get; set; }
     }
 
 }

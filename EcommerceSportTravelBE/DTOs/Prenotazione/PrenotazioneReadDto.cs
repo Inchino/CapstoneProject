@@ -12,7 +12,10 @@
 
         public Guid PacchettoViaggioId { get; set; }
         public string TitoloPacchetto { get; set; }
-    }
 
+        public int NumeroPartecipanti { get; set; }
+        public string StatoPrenotazione { get; set; }
+        public string MetodoPagamento { get; set; }
+    }
 
 }
