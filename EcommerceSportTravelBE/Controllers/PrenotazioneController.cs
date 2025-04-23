@@ -17,13 +17,18 @@ namespace EcommerceSportTravelBE.Controllers
             _prenotazioneService = prenotazioneService;
         }
 
-        // ✅ Accessibile solo da utente loggato
         [Authorize]
         [HttpGet("mie")]
         public async Task<ActionResult<List<PrenotazioneListDto>>> GetMiePrenotazioni()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized("Utente non autenticato.");
+
             var result = await _prenotazioneService.GetAllByUserAsync(userId);
+            if (result == null || !result.Any())
+                return NotFound("Nessuna prenotazione trovata per questo utente.");
+
             return Ok(result);
         }
 
@@ -32,7 +37,7 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<ActionResult<PrenotazioneReadDto>> GetById(Guid id)
         {
             var result = await _prenotazioneService.GetByIdAsync(id);
-            if (result == null) return NotFound();
+            if (result == null) return NotFound("Prenotazione non trovata.");
             return Ok(result);
         }
 
@@ -40,8 +45,13 @@ namespace EcommerceSportTravelBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> Create(PrenotazioneCreateDto dto)
         {
+
+            if (dto.PrezzoPagato <= 0 || dto.NumeroPartecipanti <= 0)
+                return BadRequest("I dati forniti non sono validi.");
+
             var id = await _prenotazioneService.CreateAsync(dto, User);
-            if (id == null) return Unauthorized("Utente non valido");
+            if (id == null) return Unauthorized("Utente non valido.");
+
             return CreatedAtAction(nameof(GetById), new { id }, id);
         }
 
@@ -49,9 +59,11 @@ namespace EcommerceSportTravelBE.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, PrenotazioneUpdateDto dto)
         {
-            if (id != dto.Id) return BadRequest();
+            if (id != dto.Id) return BadRequest("ID della prenotazione non valido.");
+
             var success = await _prenotazioneService.UpdateAsync(dto);
-            if (!success) return NotFound();
+            if (!success) return NotFound("Prenotazione non trovata.");
+
             return NoContent();
         }
 
@@ -60,7 +72,7 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _prenotazioneService.DeleteAsync(id);
-            if (!success) return NotFound();
+            if (!success) return NotFound("Prenotazione non trovata.");
             return NoContent();
         }
     }

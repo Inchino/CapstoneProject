@@ -16,9 +16,9 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<SquadraListDto>>> GetAll()
+        public async Task<ActionResult<List<SquadraListDto>>> GetAll(int page = 0, int pageSize = 10)
         {
-            var result = await _squadraService.GetAllAsync();
+            var result = await _squadraService.GetAllAsync(page, pageSize);
             return Ok(result);
         }
 
@@ -26,7 +26,7 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<ActionResult<SquadraReadDto>> GetById(Guid id)
         {
             var result = await _squadraService.GetByIdAsync(id);
-            if (result == null) return NotFound();
+            if (result == null) return NotFound("Squadra non trovata.");
             return Ok(result);
         }
 
@@ -34,15 +34,19 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<ActionResult<Guid>> Create(SquadraCreateDto dto)
         {
             var id = await _squadraService.CreateAsync(dto);
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Errore nella creazione della squadra.");
+            }
             return CreatedAtAction(nameof(GetById), new { id }, id);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, SquadraUpdateDto dto)
         {
-            if (id != dto.Id) return BadRequest();
+            if (id != dto.Id) return BadRequest("ID non corrispondente.");
             var success = await _squadraService.UpdateAsync(dto);
-            if (!success) return NotFound();
+            if (!success) return NotFound("Squadra non trovata.");
             return NoContent();
         }
 
@@ -50,7 +54,7 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _squadraService.DeleteAsync(id);
-            if (!success) return NotFound();
+            if (!success) return NotFound("Squadra non trovata.");
             return NoContent();
         }
     }

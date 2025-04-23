@@ -21,7 +21,7 @@ namespace EcommerceSportTravelBE.Controllers
         {
             var result = await _authService.RegisterAsync(registerDto);
             if (!result)
-                return BadRequest("Registrazione fallita.");
+                return BadRequest("Registrazione fallita: verifica l'email o i dati inseriti.");
             return Ok("Registrazione completata.");
         }
 
@@ -38,17 +38,17 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<IActionResult> GetRoles()
         {
             var roles = await _authService.GetRolesAsync();
-            if (roles == null)
+            if (roles == null || roles.Count == 0)
                 return NotFound("Nessun ruolo trovato.");
             return Ok(roles);
         }
 
         [Authorize(Roles = "Admin,SuperAdmin")]
         [HttpGet("users")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers(int page = 0, int pageSize = 10)
         {
-            var users = await _authService.GetUsersAsync();
-            if (users == null)
+            var users = await _authService.GetUsersAsync(page, pageSize);
+            if (users == null || users.Count == 0)
                 return NotFound("Nessun utente trovato.");
             return Ok(users);
         }

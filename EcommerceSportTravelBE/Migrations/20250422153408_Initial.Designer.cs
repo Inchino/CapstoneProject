@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceSportTravelBE.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20250414234535_UpdateModels")]
-    partial class UpdateModels
+    [Migration("20250422153408_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,34 +25,7 @@ namespace EcommerceSportTravelBE.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.ApplicationRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-                });
-
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.ApplicationUser", b =>
+            modelBuilder.Entity("ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -130,7 +103,7 @@ namespace EcommerceSportTravelBE.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.ApplicationUserRole", b =>
+            modelBuilder.Entity("ApplicationUserRole", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -145,6 +118,33 @@ namespace EcommerceSportTravelBE.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
+            modelBuilder.Entity("EcommerceSportTravelBE.Models.ApplicationRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
             modelBuilder.Entity("EcommerceSportTravelBE.Models.Citta", b =>
                 {
                     b.Property<Guid>("Id")
@@ -152,8 +152,13 @@ namespace EcommerceSportTravelBE.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DescrizioneTuristica")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ImmagineUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -161,6 +166,7 @@ namespace EcommerceSportTravelBE.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Regione")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -169,51 +175,16 @@ namespace EcommerceSportTravelBE.Migrations
                     b.ToTable("Citta");
                 });
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.PacchettoViaggio", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CittaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Descrizione")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<bool>("Disponibile")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Durata")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("PartitaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Prezzo")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Titolo")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CittaId");
-
-                    b.HasIndex("PartitaId");
-
-                    b.ToTable("PacchettiViaggio");
-                });
-
             modelBuilder.Entity("EcommerceSportTravelBE.Models.Partita", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Campionato")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("CittaId")
                         .HasColumnType("uniqueidentifier");
@@ -228,6 +199,7 @@ namespace EcommerceSportTravelBE.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Stadio")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -251,11 +223,24 @@ namespace EcommerceSportTravelBE.Migrations
                     b.Property<DateTime>("DataPrenotazione")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("MetodoPagamento")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("NumeroPartecipanti")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("PacchettoViaggioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("PrezzoPagato")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("StatoPrenotazione")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -268,39 +253,6 @@ namespace EcommerceSportTravelBE.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Prenotazioni");
-                });
-
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.Squadra", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CittaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ColoreMaglia")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LogoUrl")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Stadio")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CittaId");
-
-                    b.ToTable("Squadre");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -394,7 +346,86 @@ namespace EcommerceSportTravelBE.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.ApplicationUserRole", b =>
+            modelBuilder.Entity("PacchettoViaggio", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CittaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descrizione")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("Disponibile")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Durata")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImmagineUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PartitaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Prezzo")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Titolo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CittaId");
+
+                    b.HasIndex("PartitaId");
+
+                    b.ToTable("PacchettiViaggio");
+                });
+
+            modelBuilder.Entity("Squadra", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CittaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ColoreMaglia")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Stadio")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CittaId");
+
+                    b.ToTable("Squadre");
+                });
+
+            modelBuilder.Entity("ApplicationUserRole", b =>
                 {
                     b.HasOne("EcommerceSportTravelBE.Models.ApplicationRole", "Role")
                         .WithMany("ApplicationUserRoles")
@@ -402,7 +433,7 @@ namespace EcommerceSportTravelBE.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcommerceSportTravelBE.Models.ApplicationUser", "User")
+                    b.HasOne("ApplicationUser", "User")
                         .WithMany("ApplicationUserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -413,25 +444,6 @@ namespace EcommerceSportTravelBE.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.PacchettoViaggio", b =>
-                {
-                    b.HasOne("EcommerceSportTravelBE.Models.Citta", "Citta")
-                        .WithMany("Pacchetti")
-                        .HasForeignKey("CittaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EcommerceSportTravelBE.Models.Partita", "Partita")
-                        .WithMany("Pacchetti")
-                        .HasForeignKey("PartitaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Citta");
-
-                    b.Navigation("Partita");
-                });
-
             modelBuilder.Entity("EcommerceSportTravelBE.Models.Partita", b =>
                 {
                     b.HasOne("EcommerceSportTravelBE.Models.Citta", "Citta")
@@ -440,13 +452,13 @@ namespace EcommerceSportTravelBE.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcommerceSportTravelBE.Models.Squadra", "SquadraCasa")
+                    b.HasOne("Squadra", "SquadraCasa")
                         .WithMany("PartiteCasa")
                         .HasForeignKey("SquadraCasaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("EcommerceSportTravelBE.Models.Squadra", "SquadraOspite")
+                    b.HasOne("Squadra", "SquadraOspite")
                         .WithMany("PartiteOspite")
                         .HasForeignKey("SquadraOspiteId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -461,13 +473,13 @@ namespace EcommerceSportTravelBE.Migrations
 
             modelBuilder.Entity("EcommerceSportTravelBE.Models.Prenotazione", b =>
                 {
-                    b.HasOne("EcommerceSportTravelBE.Models.PacchettoViaggio", "PacchettoViaggio")
+                    b.HasOne("PacchettoViaggio", "PacchettoViaggio")
                         .WithMany("Prenotazioni")
                         .HasForeignKey("PacchettoViaggioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcommerceSportTravelBE.Models.ApplicationUser", "User")
+                    b.HasOne("ApplicationUser", "User")
                         .WithMany("Prenotazioni")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -476,15 +488,6 @@ namespace EcommerceSportTravelBE.Migrations
                     b.Navigation("PacchettoViaggio");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.Squadra", b =>
-                {
-                    b.HasOne("EcommerceSportTravelBE.Models.Citta", "Citta")
-                        .WithMany()
-                        .HasForeignKey("CittaId");
-
-                    b.Navigation("Citta");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -498,7 +501,7 @@ namespace EcommerceSportTravelBE.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("EcommerceSportTravelBE.Models.ApplicationUser", null)
+                    b.HasOne("ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -507,7 +510,7 @@ namespace EcommerceSportTravelBE.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("EcommerceSportTravelBE.Models.ApplicationUser", null)
+                    b.HasOne("ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -516,23 +519,53 @@ namespace EcommerceSportTravelBE.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("EcommerceSportTravelBE.Models.ApplicationUser", null)
+                    b.HasOne("ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.ApplicationRole", b =>
+            modelBuilder.Entity("PacchettoViaggio", b =>
                 {
-                    b.Navigation("ApplicationUserRoles");
+                    b.HasOne("EcommerceSportTravelBE.Models.Citta", "Citta")
+                        .WithMany("Pacchetti")
+                        .HasForeignKey("CittaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EcommerceSportTravelBE.Models.Partita", "Partita")
+                        .WithMany("Pacchetti")
+                        .HasForeignKey("PartitaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Citta");
+
+                    b.Navigation("Partita");
                 });
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Squadra", b =>
+                {
+                    b.HasOne("EcommerceSportTravelBE.Models.Citta", "Citta")
+                        .WithMany()
+                        .HasForeignKey("CittaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Citta");
+                });
+
+            modelBuilder.Entity("ApplicationUser", b =>
                 {
                     b.Navigation("ApplicationUserRoles");
 
                     b.Navigation("Prenotazioni");
+                });
+
+            modelBuilder.Entity("EcommerceSportTravelBE.Models.ApplicationRole", b =>
+                {
+                    b.Navigation("ApplicationUserRoles");
                 });
 
             modelBuilder.Entity("EcommerceSportTravelBE.Models.Citta", b =>
@@ -542,17 +575,17 @@ namespace EcommerceSportTravelBE.Migrations
                     b.Navigation("Partite");
                 });
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.PacchettoViaggio", b =>
-                {
-                    b.Navigation("Prenotazioni");
-                });
-
             modelBuilder.Entity("EcommerceSportTravelBE.Models.Partita", b =>
                 {
                     b.Navigation("Pacchetti");
                 });
 
-            modelBuilder.Entity("EcommerceSportTravelBE.Models.Squadra", b =>
+            modelBuilder.Entity("PacchettoViaggio", b =>
+                {
+                    b.Navigation("Prenotazioni");
+                });
+
+            modelBuilder.Entity("Squadra", b =>
                 {
                     b.Navigation("PartiteCasa");
 

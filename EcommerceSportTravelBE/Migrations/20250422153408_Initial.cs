@@ -32,7 +32,7 @@ namespace EcommerceSportTravelBE.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -59,27 +59,13 @@ namespace EcommerceSportTravelBE.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Regione = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    DescrizioneTuristica = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    Regione = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DescrizioneTuristica = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    ImmagineUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Citta", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Squadre",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LogoUrl = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Stadio = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ColoreMaglia = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Squadre", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,15 +175,38 @@ namespace EcommerceSportTravelBE.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Squadre",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stadio = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ColoreMaglia = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CittaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Squadre", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Squadre_Citta_CittaId",
+                        column: x => x.CittaId,
+                        principalTable: "Citta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Partite",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DataPartita = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Stadio = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     SquadraCasaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SquadraOspiteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CittaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Stadio = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    Campionato = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -230,9 +239,11 @@ namespace EcommerceSportTravelBE.Migrations
                     Titolo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Descrizione = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     Prezzo = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ImmagineUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Durata = table.Column<int>(type: "int", nullable: false),
+                    Disponibile = table.Column<bool>(type: "bit", nullable: false),
                     PartitaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CittaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Disponibile = table.Column<bool>(type: "bit", nullable: false)
+                    CittaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -242,7 +253,7 @@ namespace EcommerceSportTravelBE.Migrations
                         column: x => x.CittaId,
                         principalTable: "Citta",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PacchettiViaggio_Partite_PartitaId",
                         column: x => x.PartitaId,
@@ -258,6 +269,9 @@ namespace EcommerceSportTravelBE.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DataPrenotazione = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PrezzoPagato = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NumeroPartecipanti = table.Column<int>(type: "int", nullable: false),
+                    StatoPrenotazione = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    MetodoPagamento = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PacchettoViaggioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -351,6 +365,11 @@ namespace EcommerceSportTravelBE.Migrations
                 name: "IX_Prenotazioni_UserId",
                 table: "Prenotazioni",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Squadre_CittaId",
+                table: "Squadre",
+                column: "CittaId");
         }
 
         /// <inheritdoc />
@@ -387,10 +406,10 @@ namespace EcommerceSportTravelBE.Migrations
                 name: "Partite");
 
             migrationBuilder.DropTable(
-                name: "Citta");
+                name: "Squadre");
 
             migrationBuilder.DropTable(
-                name: "Squadre");
+                name: "Citta");
         }
     }
 }

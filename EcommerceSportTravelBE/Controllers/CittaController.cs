@@ -16,9 +16,9 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CittaListDto>>> GetAll()
+        public async Task<ActionResult<List<CittaListDto>>> GetAll(int page = 0, int pageSize = 10)
         {
-            var result = await _cittaService.GetAllAsync();
+            var result = await _cittaService.GetAllAsync(page, pageSize);
             return Ok(result);
         }
 

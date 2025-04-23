@@ -16,9 +16,9 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PartitaListDto>>> GetAll()
+        public async Task<ActionResult<List<PartitaListDto>>> GetAll(int page = 0, int pageSize = 10)
         {
-            var result = await _partitaService.GetAllAsync();
+            var result = await _partitaService.GetAllAsync(page, pageSize);
             return Ok(result);
         }
 
@@ -26,7 +26,7 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<ActionResult<PartitaReadDto>> GetById(Guid id)
         {
             var result = await _partitaService.GetByIdAsync(id);
-            if (result == null) return NotFound();
+            if (result == null) return NotFound("Partita non trovata.");
             return Ok(result);
         }
 
@@ -34,15 +34,19 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<ActionResult<Guid>> Create(PartitaCreateDto dto)
         {
             var id = await _partitaService.CreateAsync(dto);
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Errore nella creazione della partita.");
+            }
             return CreatedAtAction(nameof(GetById), new { id }, id);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, PartitaUpdateDto dto)
         {
-            if (id != dto.Id) return BadRequest();
+            if (id != dto.Id) return BadRequest("ID non corrispondente.");
             var success = await _partitaService.UpdateAsync(dto);
-            if (!success) return NotFound();
+            if (!success) return NotFound("Partita non trovata.");
             return NoContent();
         }
 
@@ -50,7 +54,7 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _partitaService.DeleteAsync(id);
-            if (!success) return NotFound();
+            if (!success) return NotFound("Partita non trovata.");
             return NoContent();
         }
     }

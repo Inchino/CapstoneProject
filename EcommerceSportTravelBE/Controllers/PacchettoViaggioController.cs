@@ -16,9 +16,9 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PacchettoViaggioListDto>>> GetAll()
+        public async Task<ActionResult<List<PacchettoViaggioListDto>>> GetAll(int page = 0, int pageSize = 10)
         {
-            var result = await _pacchettoService.GetAllAsync();
+            var result = await _pacchettoService.GetAllAsync(page, pageSize);
             return Ok(result);
         }
 
@@ -26,7 +26,7 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<ActionResult<PacchettoViaggioReadDto>> GetById(Guid id)
         {
             var result = await _pacchettoService.GetByIdAsync(id);
-            if (result == null) return NotFound();
+            if (result == null) return NotFound("Pacchetto viaggio non trovato.");
             return Ok(result);
         }
 
@@ -34,15 +34,19 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<ActionResult<Guid>> Create(PacchettoViaggioCreateDto dto)
         {
             var id = await _pacchettoService.CreateAsync(dto);
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Errore nella creazione del pacchetto viaggio.");
+            }
             return CreatedAtAction(nameof(GetById), new { id }, id);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, PacchettoViaggioUpdateDto dto)
         {
-            if (id != dto.Id) return BadRequest();
+            if (id != dto.Id) return BadRequest("ID non corrispondente.");
             var success = await _pacchettoService.UpdateAsync(dto);
-            if (!success) return NotFound();
+            if (!success) return NotFound("Pacchetto viaggio non trovato.");
             return NoContent();
         }
 
@@ -50,7 +54,7 @@ namespace EcommerceSportTravelBE.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _pacchettoService.DeleteAsync(id);
-            if (!success) return NotFound();
+            if (!success) return NotFound("Pacchetto viaggio non trovato.");
             return NoContent();
         }
     }
