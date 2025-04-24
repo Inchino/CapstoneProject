@@ -20,7 +20,8 @@ namespace EcommerceSportTravelBE.DTOs.PacchettoViaggio
         public decimal Prezzo { get; set; }
 
         [Required]
-        public DurataPacchetto Durata { get; set; }
+        [Range(3, 7, ErrorMessage = "La durata deve essere 3, 5 o 7 giorni.")]
+        public int Durata { get; set; }
 
         [Required]
         [Url]

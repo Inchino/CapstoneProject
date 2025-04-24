@@ -21,6 +21,39 @@ export const getPacchettiViaggio = async (page = 0, pageSize = 10) => {
   }
 };
 
+export const getPacchettoViaggioById = async (id) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/${id}`, {
+        headers: getAuthHeaders(),
+      });
+  
+      if (!res.ok) throw new Error("Errore nel recupero del pacchetto viaggio");
+      return await res.json();
+    } catch (error) {
+      console.error("[PacchettoService - getPacchettoViaggioById]", error);
+      throw error;
+    }
+  };  
+
+  export const updatePacchettoViaggio = async (dto) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/${dto.id}`, {
+        method: "PUT",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(dto),
+      });
+  
+      if (!res.ok) throw new Error("Errore durante l'aggiornamento del pacchetto");
+  
+      if (res.status === 204) return;
+      return await res.json();
+    } catch (error) {
+      console.error("[PacchettoService - updatePacchettoViaggio]", error);
+      throw error;
+    }
+  };
+  
+    
 export const deletePacchettoViaggio = async (id) => {
   try {
     const res = await fetch(`${API_BASE_URL}/${id}`, {

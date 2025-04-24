@@ -121,11 +121,15 @@ namespace EcommerceSportTravelBE.Services
                 entity.Titolo = dto.Titolo;
                 entity.Descrizione = dto.Descrizione;
                 entity.Prezzo = dto.Prezzo;
-                entity.Durata = dto.Durata;
                 entity.PartitaId = dto.PartitaId;
                 entity.CittaId = dto.CittaId;
                 entity.ImmagineUrl = dto.ImmagineUrl;
                 entity.Disponibile = dto.Disponibile;
+
+                if (Enum.IsDefined(typeof(DurataPacchetto), dto.Durata))
+                    entity.Durata = (DurataPacchetto)dto.Durata;
+                else
+                    return false;
 
                 await _context.SaveChangesAsync();
                 return true;
