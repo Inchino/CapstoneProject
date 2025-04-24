@@ -21,14 +21,20 @@ namespace EcommerceSportTravelBE.Services
                 return await _context.PacchettiViaggio
                     .Skip(page * pageSize)
                     .Take(pageSize)
+                    .Include(p => p.Partita)
+                        .ThenInclude(pa => pa.SquadraCasa)
+                    .Include(p => p.Partita)
+                        .ThenInclude(pa => pa.SquadraOspite)
                     .Include(p => p.Citta)
                     .Select(p => new PacchettoViaggioListDto
                     {
                         Id = p.Id,
                         Titolo = p.Titolo,
+                        Descrizione = p.Descrizione,
                         Prezzo = p.Prezzo,
                         DurataInGiorni = (int)p.Durata,
                         CittaNome = p.Citta.Nome,
+                        PartitaDescrizione = $"{p.Partita.SquadraCasa.Nome} vs {p.Partita.SquadraOspite.Nome} - {p.Partita.DataPartita:dd/MM/yyyy}",
                         ImmagineUrl = p.ImmagineUrl,
                         Disponibile = p.Disponibile
                     })
