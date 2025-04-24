@@ -60,6 +60,15 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        builder => builder.WithOrigins("http://localhost:3000") // La porta predefinita di Vite
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 // Services
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>>();
 builder.Services.AddScoped<PacchettoViaggioService>();
@@ -128,6 +137,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 app.UseAuthorization();
