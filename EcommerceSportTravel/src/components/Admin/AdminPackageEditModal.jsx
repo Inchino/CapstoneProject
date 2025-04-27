@@ -1,52 +1,126 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Modal, Button, Form, Alert } from "react-bootstrap";
+import { getPartitaById } from "../../services/partitaService";
 
-const AdminPackageEditModal = ({ show, handleClose, pacchetto, onSave }) => {
+const AdminPackageEditModal = ({
+  show,
+  handleClose,
+  pacchetto,
+  onSave,
+  partite,
+}) => {
   const [formData, setFormData] = useState({ ...pacchetto });
+  const [error, setError] = useState("");
+  const [isLoadingPartita, setIsLoadingPartita] = useState(false);
 
   useEffect(() => {
     if (pacchetto) {
       setFormData({
-        id: pacchetto.id,
-        titolo: pacchetto.titolo,
-        descrizione: pacchetto.descrizione,
-        prezzo: pacchetto.prezzo,
-        durata: pacchetto.durata,
-        immagineUrl: pacchetto.immagineUrl,
-        disponibile: pacchetto.disponibile,
-        partitaId: pacchetto.partitaId ?? '',
-        cittaId: pacchetto.cittaId ?? ''
+        id: pacchetto.id || "",
+        titolo: pacchetto.titolo || "",
+        descrizione: pacchetto.descrizione || "",
+        prezzo: pacchetto.prezzo || 0,
+        durata: pacchetto.durata || "",
+        immagineUrl: pacchetto.immagineUrl || "",
+        disponibile: pacchetto.disponibile ?? true,
+        partitaId: pacchetto.partitaId || "",
+        cittaId: pacchetto.cittaId || "",
+      });
+    } else {
+      setFormData({
+        id: "",
+        titolo: "",
+        descrizione: "",
+        prezzo: 0,
+        durata: "",
+        immagineUrl: "",
+        disponibile: true,
+        partitaId: "",
+        cittaId: "",
       });
     }
-  }, [pacchetto]);  
+    setError("");
+  }, [pacchetto]);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+    let updatedFormData = {
+      ...formData,
       [name]: type === "checkbox" ? checked : value,
-    }));
+    };
+
+    if (name === "partitaId" && value) {
+      try {
+        setIsLoadingPartita(true);
+        const partita = await getPartitaById(value);
+        updatedFormData.cittaId = partita.cittaId;
+        setError("");
+      } catch (err) {
+        console.error("Errore nel caricamento della partita", err);
+        setError("Errore nel caricamento dei dati della partita. Riprova.");
+        updatedFormData.cittaId = "";
+      } finally {
+        setIsLoadingPartita(false);
+      }
+    }
+
+    setFormData(updatedFormData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dati da inviare:", formData);
-    onSave(formData);
+    if (!isFormValid()) {
+      setError("Compila correttamente tutti i campi prima di salvare.");
+      return;
+    }
+
+    const cleanData = {
+      id: formData.id,
+      titolo: formData.titolo,
+      descrizione: formData.descrizione,
+      prezzo: parseFloat(formData.prezzo),
+      durata: parseInt(formData.durata),
+      immagineUrl: formData.immagineUrl,
+      disponibile: formData.disponibile,
+      partitaId: formData.partitaId,
+      cittaId: formData.cittaId,
+    };
+
+    onSave(cleanData);
+  };
+
+  const isFormValid = () => {
+    return (
+      formData.titolo.trim() !== "" &&
+      formData.descrizione.trim() !== "" &&
+      formData.prezzo >= 200 &&
+      formData.durata !== "" &&
+      formData.immagineUrl.trim() !== "" &&
+      formData.partitaId !== "" &&
+      formData.cittaId !== ""
+    );
   };
 
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Modifica Pacchetto Viaggio</Modal.Title>
+        <Modal.Title>
+          {formData.id
+            ? "Modifica Pacchetto Viaggio"
+            : "Nuovo Pacchetto Viaggio"}
+        </Modal.Title>
       </Modal.Header>
+
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
+
           <Form.Group className="mb-3">
             <Form.Label>Titolo</Form.Label>
             <Form.Control
               type="text"
               name="titolo"
-              value={formData.titolo || ""}
+              value={formData.titolo}
               onChange={handleChange}
               required
             />
@@ -57,9 +131,10 @@ const AdminPackageEditModal = ({ show, handleClose, pacchetto, onSave }) => {
             <Form.Control
               as="textarea"
               name="descrizione"
-              value={formData.descrizione || ""}
+              value={formData.descrizione}
               onChange={handleChange}
               rows={3}
+              required
             />
           </Form.Group>
 
@@ -84,7 +159,7 @@ const AdminPackageEditModal = ({ show, handleClose, pacchetto, onSave }) => {
               onChange={handleChange}
               required
             >
-              <option value="">Seleziona...</option>
+              <option value="">Seleziona durata...</option>
               <option value="3">3 giorni</option>
               <option value="5">5 giorni</option>
               <option value="7">7 giorni</option>
@@ -96,11 +171,46 @@ const AdminPackageEditModal = ({ show, handleClose, pacchetto, onSave }) => {
             <Form.Control
               type="text"
               name="immagineUrl"
-              value={formData.immagineUrl || ""}
+              value={formData.immagineUrl}
               onChange={handleChange}
               required
             />
           </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Partita</Form.Label>
+            <Form.Select
+              name="partitaId"
+              value={formData.partitaId}
+              onChange={handleChange}
+              required
+              disabled={isLoadingPartita}
+            >
+              <option value="">Seleziona partita...</option>
+              {partite.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {`${p.squadraCasaNome} vs ${p.squadraOspiteNome} - ${new Date(
+                    p.dataPartita
+                  ).toLocaleDateString()}`}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+
+          {formData.cittaId && (
+            <Form.Group className="mb-3">
+              <Form.Label>Città selezionata</Form.Label>
+              <Form.Control
+                type="text"
+                value={
+                  partite.find((p) => p.id === formData.partitaId)?.cittaNome ||
+                  ""
+                }
+                disabled
+                readOnly
+              />
+            </Form.Group>
+          )}
 
           <Form.Group className="mb-3">
             <Form.Check
@@ -117,8 +227,12 @@ const AdminPackageEditModal = ({ show, handleClose, pacchetto, onSave }) => {
           <Button variant="secondary" onClick={handleClose}>
             Annulla
           </Button>
-          <Button variant="primary" type="submit">
-            Salva Modifiche
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={!isFormValid() || isLoadingPartita}
+          >
+            {isLoadingPartita ? "Caricamento..." : "Salva"}
           </Button>
         </Modal.Footer>
       </Form>
