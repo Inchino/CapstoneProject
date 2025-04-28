@@ -17,7 +17,6 @@ import UserBookings from './pages/user/UserBookings';
 // Area admin
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminPackages from './pages/admin/AdminPackages';
-import AdminEditPackage from './pages/admin/AdminEditPackage';
 
 function App() {
   return (
@@ -37,7 +36,6 @@ function App() {
         {/* Area admin */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/packages" element={<AdminPackages />} />
-        <Route path="/admin/packages/edit/:id" element={<AdminEditPackage />} />
       </Routes>
       <MyFooter />
     </BrowserRouter>
