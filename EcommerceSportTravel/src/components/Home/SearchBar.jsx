@@ -19,11 +19,11 @@ function SearchBar({ onSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchData); // Passa i dati al componente padre
+    onSearch(searchData);
   };
 
   return (
-    <Form className="search-bar p-4 shadow-sm mb-5" onSubmit={handleSubmit}>
+    <Form className="search-bar p-4 mb-5 shadow-sm" onSubmit={handleSubmit}>
       <Row className="gy-3">
         <Col md={3}>
           <Form.Select name="citta" value={searchData.citta} onChange={handleChange}>
