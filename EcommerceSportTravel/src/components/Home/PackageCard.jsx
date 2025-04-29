@@ -14,7 +14,7 @@ const PackageCard = ({ pacchetto }) => {
       <Card.Img
         variant="top"
         src={pacchetto.immagineUrl}
-        alt={pacchetto.nome}
+        alt={pacchetto.titolo}
         style={{
           height: "200px",
           objectFit: "cover",

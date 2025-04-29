@@ -51,7 +51,7 @@ function Home() {
           <h2 className="text-center text-light mb-4">
             Scopri tutti i pacchetti disponibili
           </h2>
-          <p className="text-center text-muted mb-5">
+          <p className="text-center mb-5">
             Vivi la tua passione per il calcio visitando città incredibili:
             scegli il tuo viaggio ideale!
           </p>

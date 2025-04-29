@@ -1,8 +1,18 @@
 import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const BestPackageSection = ({ pacchetto }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/packages/${pacchetto.id}`);
+  };
+
   return (
-    <section className="py-5 mb-5 rounded-4 shadow" style={{ backgroundColor: "#1b3a2f" }}>
+    <section
+      className="py-5 mb-5 rounded-4 shadow"
+      style={{ backgroundColor: "#1b3a2f" }}
+    >
       <Container className="d-flex justify-content-center">
         <div style={{ maxWidth: "1100px", width: "100%" }}>
           <h2 className="text-center text-light mb-5">
@@ -14,7 +24,7 @@ const BestPackageSection = ({ pacchetto }) => {
                 <div className="position-relative h-100">
                   <Card.Img
                     src={pacchetto.immagineUrl}
-                    alt={pacchetto.nome}
+                    alt={pacchetto.titolo}
                     style={{
                       height: "100%",
                       objectFit: "cover",
@@ -52,7 +62,11 @@ const BestPackageSection = ({ pacchetto }) => {
                   <Card.Text className="mb-4">
                     {pacchetto.descrizione}
                   </Card.Text>
-                  <Button variant="warning" className="w-50">
+                  <Button
+                    variant="warning"
+                    className="w-50"
+                    onClick={handleClick}
+                  >
                     Scopri di più
                   </Button>
                 </Card.Body>
