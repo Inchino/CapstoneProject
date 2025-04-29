@@ -79,6 +79,7 @@ builder.Services.AddScoped<PrenotazioneService>();
 builder.Services.AddScoped<PartitaService>();
 builder.Services.AddScoped<SquadraService>();
 builder.Services.AddScoped<CittaService>();
+builder.Services.AddScoped<AuthService>();
 
 // Controllers
 builder.Services.AddControllers();
