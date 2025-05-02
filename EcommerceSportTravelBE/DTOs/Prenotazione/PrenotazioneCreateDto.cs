@@ -13,8 +13,8 @@ namespace EcommerceSportTravelBE.DTOs.Prenotazione
         [Required]
         public DateTime DataPrenotazione { get; set; }
 
-        [Required]
-        public string UserId { get; set; }
+        //[Required]
+        //public string UserId { get; set; }
 
         [Required]
         [Range(1, 10, ErrorMessage = "Il numero di partecipanti deve essere almeno 1 e massimo 10.")]

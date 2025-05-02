@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 
 // Area utente
 import UserBookings from './pages/user/UserBookings';
+import Booking from './pages/user/Booking';
 
 // Area admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -31,6 +32,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         {/* Area utente */}
+        <Route path="/booking/:pacchettoId" element={<Booking />}/>
         <Route path="/user/bookings" element={<UserBookings />} />
 
         {/* Area admin */}
