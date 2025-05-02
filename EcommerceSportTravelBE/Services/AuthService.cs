@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Data;
 
 public class AuthService
 {
@@ -108,13 +109,14 @@ public class AuthService
             }
 
             var roles = await _userManager.GetRolesAsync(user);
+            var primaryRole = roles.FirstOrDefault() ?? "User";
 
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, $"{user.Name} {user.Surname}")
-            };
+            var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Id),
+            new Claim("name", $"{user.Name} {user.Surname}"),
+            new Claim("role", primaryRole)
+        };
 
             foreach (var role in roles)
             {

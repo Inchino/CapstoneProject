@@ -1,8 +1,19 @@
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
 import "./MyNavbar.css";
 
 function MyNavBar() {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <Navbar expand="lg" className="bg-custom" variant="dark">
       <Container>
@@ -15,15 +26,39 @@ function MyNavBar() {
             <Nav.Link as={NavLink} to="/" className="link-custom">
               Home
             </Nav.Link>
+
             <Nav.Link as={NavLink} to="/packages" className="link-custom">
               Pacchetti
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/login" className="link-custom">
-              Login
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/signup" className="link-custom">
-              Registrati
-            </Nav.Link>
+
+            {user ? (
+              <>
+                {user.role === "Admin" && (
+                  <Nav.Link as={NavLink} to="/admin" className="link-custom">
+                    Admin
+                  </Nav.Link>
+                )}
+
+                <NavDropdown
+                  title={user.name}
+                  id="user-dropdown"
+                  className="link-custom"
+                >
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <>
+                <Nav.Link as={NavLink} to="/login" className="link-custom">
+                  Login
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/signup" className="link-custom">
+                  Registrati
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

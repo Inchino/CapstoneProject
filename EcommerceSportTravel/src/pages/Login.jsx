@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { loginUser } from "../services/authService";
+import { login } from "../redux/authSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,8 +32,8 @@ const Login = () => {
 
     try {
       const token = await loginUser(formData);
-      localStorage.setItem("token", token); // salva il token
-      navigate("/"); // redirect alla home
+      dispatch(login(token));
+      navigate("/");
     } catch (err) {
       setError(err.message || "Errore di autenticazione.");
     }

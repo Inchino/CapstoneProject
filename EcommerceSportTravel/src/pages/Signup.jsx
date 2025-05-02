@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../services/authService";
+import { useDispatch } from "react-redux";
+import { registerUser, loginUser } from "../services/authService";
+import { login } from "../redux/authSlice";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +18,7 @@ const Signup = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const validate = () => {
     const { name, surname, birthDate, email, password } = formData;
@@ -54,7 +57,15 @@ const Signup = () => {
     try {
       const message = await registerUser(formData);
       setSuccess(message);
-      setTimeout(() => navigate("/login"), 2000);
+
+      // 🔐 Login automatico
+      const token = await loginUser({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      dispatch(login(token));
+      navigate("/");
     } catch (err) {
       setError(err.message || "Errore durante la registrazione.");
     }
