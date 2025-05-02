@@ -28,7 +28,7 @@ function MyNavBar() {
             </Nav.Link>
 
             <Nav.Link as={NavLink} to="/packages" className="link-custom">
-              Pacchetti
+              Pacchetti Viaggio
             </Nav.Link>
 
             {user ? (
@@ -38,6 +38,14 @@ function MyNavBar() {
                     Admin
                   </Nav.Link>
                 )}
+
+                <Nav.Link
+                  as={NavLink}
+                  to="/userBookings"
+                  className="link-custom"
+                >
+                  Le mie prenotazioni
+                </Nav.Link>
 
                 <NavDropdown
                   title={user.name}
