@@ -34,7 +34,7 @@ const Booking = () => {
 
     try {
       await creaPrenotazione(dto, token);
-      navigate("/mie-prenotazioni");
+      navigate("/userBookings");
     } catch (err) {
       const message = err?.message || "Errore nella prenotazione.";
       setErrore(message);

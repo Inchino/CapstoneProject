@@ -15,3 +15,18 @@ export async function creaPrenotazione(data, token) {
 
   return await res.json();
 }
+
+export async function getMiePrenotazioni(token) {
+  const res = await fetch("https://localhost:7182/api/Prenotazione/mie", {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    const error = await res.text();
+    throw new Error(error || "Errore durante il recupero delle prenotazioni.");
+  }
+
+  return await res.json();
+}

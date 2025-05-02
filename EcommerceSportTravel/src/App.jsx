@@ -33,7 +33,7 @@ function App() {
 
         {/* Area utente */}
         <Route path="/booking/:pacchettoId" element={<Booking />}/>
-        <Route path="/user/bookings" element={<UserBookings />} />
+        <Route path="/userBookings" element={<UserBookings />} />
 
         {/* Area admin */}
         <Route path="/admin" element={<AdminDashboard />} />
