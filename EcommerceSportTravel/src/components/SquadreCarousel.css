@@ -1,0 +1,51 @@
+.squadre-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Nasconde scrollbar in tutti i browser principali */
+.squadre-container {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.squadre-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.squadra-card {
+  min-width: 180px;
+  min-height: 250px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  color: white;
+}
+
+.logo-img {
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 35%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  width: 40px;
+  height: 60px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}

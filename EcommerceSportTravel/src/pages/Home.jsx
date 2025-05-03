@@ -1,9 +1,10 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import HeroSection from "../components/Home/HeroSection";
-import SearchBar from "../components/Home/SearchBar";
+// import SearchBar from "../components/Home/SearchBar";
 import BestPackageSection from "../components/Home/BestPackageSection";
 import PackageCard from "../components/Home/PackageCard";
+import SquadreCarousel from "../components/SquadreCarousel";
 
 import { getPacchettoViaggioById } from "../services/pacchettoViaggioService";
 import { getPacchettiViaggio } from "../services/pacchettoViaggioService";
@@ -42,7 +43,8 @@ function Home() {
   return (
     <>
       <HeroSection />
-      <SearchBar />
+      {/* <SearchBar /> */}
+      <SquadreCarousel />
       <Container>
       {bestPackage && <BestPackageSection pacchetto={bestPackage} />}
 
