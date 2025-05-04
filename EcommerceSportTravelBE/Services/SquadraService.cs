@@ -14,7 +14,7 @@ namespace EcommerceSportTravelBE.Services
             _context = context;
         }
 
-        public async Task<List<SquadraListDto>> GetAllAsync(int page = 0, int pageSize = 10)
+        public async Task<List<SquadraListDto>> GetAllAsync(int page = 0, int pageSize = 20)
         {
             try
             {

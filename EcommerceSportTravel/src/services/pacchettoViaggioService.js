@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://localhost:7182/api/PacchettoViaggio";
+const API_URL = "https://localhost:7182/api/PacchettoViaggio";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
@@ -12,7 +12,7 @@ const getAuthHeaders = () => {
 export const getPacchettiViaggio = async (page = 0, pageSize = 10) => {
   try {
     const res = await fetch(
-      `${API_BASE_URL}?page=${page}&pageSize=${pageSize}`,
+      `${API_URL}?page=${page}&pageSize=${pageSize}`,
       {
         headers: getAuthHeaders(),
       }
@@ -29,7 +29,7 @@ export const getPacchettiViaggio = async (page = 0, pageSize = 10) => {
 // Dettaglio pacchetto per ID
 export const getPacchettoViaggioById = async (id) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/${id}`, {
+    const res = await fetch(`${API_URL}/${id}`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error("Errore nel recupero del pacchetto");
@@ -43,7 +43,7 @@ export const getPacchettoViaggioById = async (id) => {
 // Creazione pacchetto
 export const createPacchettoViaggio = async (dto) => {
   try {
-    const res = await fetch(API_BASE_URL, {
+    const res = await fetch(API_URL, {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify(dto),
@@ -51,7 +51,6 @@ export const createPacchettoViaggio = async (dto) => {
 
     if (!res.ok) throw new Error("Errore nella creazione del pacchetto");
 
-    // Verifica se la risposta ha del testo
     const text = await res.text();
     return text ? JSON.parse(text) : null;
   } catch (error) {
@@ -66,7 +65,7 @@ export const updatePacchettoViaggio = async (dto) => {
     if (!dto.id)
       throw new Error("ID mancante per l'aggiornamento del pacchetto");
 
-    const res = await fetch(`${API_BASE_URL}/${dto.id}`, {
+    const res = await fetch(`${API_URL}/${dto.id}`, {
       method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(dto),
@@ -75,7 +74,7 @@ export const updatePacchettoViaggio = async (dto) => {
     if (!res.ok) throw new Error("Errore nell'aggiornamento del pacchetto");
 
     const text = await res.text();
-    return text ? JSON.parse(text) : null; // 🔥 fix parsing
+    return text ? JSON.parse(text) : null;
   } catch (error) {
     console.error("[PacchettoService - updatePacchettoViaggio]", error);
     throw error;
@@ -85,7 +84,7 @@ export const updatePacchettoViaggio = async (dto) => {
 // Eliminazione pacchetto
 export const deletePacchettoViaggio = async (id) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/${id}`, {
+    const res = await fetch(`${API_URL}/${id}`, {
       method: "DELETE",
       headers: getAuthHeaders(),
     });
@@ -95,3 +94,25 @@ export const deletePacchettoViaggio = async (id) => {
     throw error;
   }
 };
+
+// Ricerca filtrata
+export async function getPacchettiBySquadraId(squadraId) {
+  try {
+    if (!squadraId) {
+      console.warn('[getPacchettiBySquadraId] ID squadra mancante');
+      return [];
+    }
+
+    const response = await fetch(`${API_URL}?squadraId=${squadraId}`, {
+      headers: getAuthHeaders(), // se serve token
+    });
+
+    if (!response.ok) throw new Error('Errore nella fetch dei pacchetti viaggio');
+    return await response.json();
+  } catch (error) {
+    console.error('[getPacchettiBySquadraId] Errore:', error);
+    throw error; // oppure return []
+  }
+}
+
+

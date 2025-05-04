@@ -11,7 +11,8 @@ export default function SquadreCarousel() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllSquadre(0, 20);
+      const data = await getAllSquadre(0, 100);
+      console.log("Squadre ricevute:", data);
       setSquadre(data);
       setLoading(false);
     };
@@ -35,6 +36,7 @@ export default function SquadreCarousel() {
         {squadre.map((squadra) => (
           <SquadraCard
             key={squadra.id}
+            id={squadra.id}
             nome={squadra.nome}
             logoUrl={squadra.logoUrl}
             coloreMaglia={squadra.coloreMaglia || '#222'}

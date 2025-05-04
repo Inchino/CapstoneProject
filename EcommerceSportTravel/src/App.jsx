@@ -8,6 +8,7 @@ import MyFooter from './components/MyFooter';
 import Home from './pages/Home';
 import Packages from './pages/Packages';
 import PackageDetail from './pages/PackageDetail';
+import TeamDetail from './pages/TeamDetail';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/packages/:id" element={<PackageDetail />} />
+        <Route path="/team/:id" element={<TeamDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 

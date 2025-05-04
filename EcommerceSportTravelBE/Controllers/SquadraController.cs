@@ -16,7 +16,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<SquadraListDto>>> GetAll(int page = 0, int pageSize = 10)
+        public async Task<ActionResult<List<SquadraListDto>>> GetAll(int page = 0, int pageSize = 20)
         {
             var result = await _squadraService.GetAllAsync(page, pageSize);
             return Ok(result);

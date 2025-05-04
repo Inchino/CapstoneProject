@@ -158,5 +158,39 @@ namespace EcommerceSportTravelBE.Services
                 return false;
             }
         }
+
+        public async Task<List<PacchettoViaggioListDto>> SearchBySquadraAsync(Guid squadraId)
+        {
+            try
+            {
+                return await _context.PacchettiViaggio
+                    .Include(p => p.Partita)
+                        .ThenInclude(pa => pa.SquadraCasa)
+                    .Include(p => p.Partita)
+                        .ThenInclude(pa => pa.SquadraOspite)
+                    .Include(p => p.Citta)
+                    .Where(p =>
+                        p.Partita.SquadraCasaId == squadraId ||
+                        p.Partita.SquadraOspiteId == squadraId)
+                    .Select(p => new PacchettoViaggioListDto
+                    {
+                        Id = p.Id,
+                        Titolo = p.Titolo,
+                        Descrizione = p.Descrizione,
+                        Prezzo = p.Prezzo,
+                        DurataInGiorni = (int)p.Durata,
+                        CittaNome = p.Citta.Nome,
+                        PartitaDescrizione = $"{p.Partita.SquadraCasa.Nome} vs {p.Partita.SquadraOspite.Nome} - {p.Partita.DataPartita:dd/MM/yyyy}",
+                        ImmagineUrl = p.ImmagineUrl,
+                        Disponibile = p.Disponibile
+                    })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[SearchBySquadraAsync] Errore: {ex.Message}");
+                return new List<PacchettoViaggioListDto>();
+            }
+        }
     }
 }
