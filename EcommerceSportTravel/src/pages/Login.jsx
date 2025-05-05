@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../services/authService";
 import { login } from "../redux/authSlice";
+import "./Login.css"
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -16,7 +17,8 @@ const Login = () => {
   };
 
   const validate = () => {
-    if (!formData.email || !formData.password) return "Tutti i campi sono obbligatori.";
+    if (!formData.email || !formData.password)
+      return "Tutti i campi sono obbligatori.";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) return "Email non valida.";
     if (formData.password.length < 6) return "Password troppo corta.";
@@ -68,9 +70,11 @@ const Login = () => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" className="w-100">
-          Accedi
-        </Button>
+        <div className="text-center">
+          <button type="submit" className="btn-login">
+            <span>Accedi</span>
+          </button>
+        </div>
       </Form>
     </Container>
   );

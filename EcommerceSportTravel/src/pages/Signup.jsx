@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser, loginUser } from "../services/authService";
 import { login } from "../redux/authSlice";
+import "./Login.css"
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -135,22 +136,11 @@ const Signup = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-4">
-          <Form.Label>Ruolo</Form.Label>
-          <Form.Select
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            required
-          >
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
-          </Form.Select>
-        </Form.Group>
-
-        <Button variant="primary" type="submit" className="w-100">
-          Registrati
-        </Button>
+        <div className="text-center">
+          <button type="submit" className="btn-login">
+            <span>Registrati</span>
+          </button>
+        </div>
       </Form>
     </Container>
   );
