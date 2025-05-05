@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  color: #fdf6e3; /* Crema */
+  color: #fdf6e3;
   padding: 4rem 1rem;
 }
 
@@ -23,13 +23,13 @@
 }
 
 .hero-section p {
-  color: #fdf6e3; /* crema */
+  color: #fdf6e3;
 }
 
 .hero-section .btn-light {
-  background-color: #d4af37; /* oro */
+  background-color: #d4af37;
   border: none;
-  color: #1b3a2f; /* verde scuro */
+  color: #1b3a2f;
 }
 
 .hero-section .btn-light:hover {
@@ -49,20 +49,37 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    min-height: 50vh;
-    padding: 2rem 1rem;
+    min-height: 60vh;
+    padding: 2.5rem 1rem 3rem;
+    text-align: center;
   }
 
   .hero-section h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    line-height: 1.3;
+    margin-bottom: 1.2rem;
   }
 
   .hero-section p {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.8rem;
+    padding: 0 0.5rem;
   }
 
   .hero-section .btn {
-    width: 100%;
-    margin-bottom: 1rem;
+    width: auto;
+    min-width: 160px;
+    margin: 0.4rem 0.3rem;
+    font-size: 0.95rem;
+    padding: 0.55rem 1rem;
+  }
+
+  .hero-section .btn-light {
+    font-weight: 600;
+  }
+
+  .hero-section .btn-outline-light {
+    font-weight: 600;
   }
 }
+

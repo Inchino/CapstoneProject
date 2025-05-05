@@ -10,7 +10,7 @@ function HeroSection() {
           <Col lg={8}>
             <h1 className="display-4 fw-bold mb-3">Scopri l’Italia tra calcio e cultura</h1>
             <p className="lead mb-4">
-              Viaggi brevi con biglietto incluso per partite di Serie A e B nelle città d’arte italiane.
+              Viaggi inclusi di biglietto per partite di Serie A nelle città d’arte italiane.
             </p>
             <Button as={Link} to="/packages" variant="light" size="lg" className="me-3">
               Scopri i Pacchetti
