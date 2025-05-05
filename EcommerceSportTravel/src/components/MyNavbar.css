@@ -1,22 +1,85 @@
-/* Verde scuro di sfondo */
+/* NAVBAR BASE */
+
 .bg-custom {
-  background-color: #1b3a2f !important;
+  background-color: #05391F !important;
+  min-height: 60px;
 }
 
-/* Testo crema per il brand */
 .brand-custom {
   color: #fdf6e3 !important;
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
 }
 
-/* Link stile crema + hover oro */
-.link-custom {
+/* NAV LOGO */
+
+.logo-img {
+  max-height: 70px;
+  object-fit: contain;
+  padding: 2px 0;
+}
+
+/* NAV LINKS */
+
+.navbar-nav .nav-link,
+.navbar-nav .nav-link:visited {
   color: #fdf6e3 !important;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
 }
 
-.link-custom:hover,
-.link-custom.active {
-  color: #d4af37 !important; /* Oro */
+/* ATTIVO */
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.active:focus {
+  color: #d4af37 !important;
+  font-weight: 600;
+  border-bottom: 2px solid #d4af37;
+  padding-bottom: 0 !important;
+}
+
+/* HOVER */
+
+.navbar-nav .nav-link:hover {
+  color: #d4af37 !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-custom .dropdown-toggle {
+  color: #fdf6e3 !important;
+  background-color: transparent !important;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  background-color: #1b3a2f;
+  border: none;
+}
+
+.dropdown-item {
+  color: #fdf6e3 !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #2e5a48 !important;
+  color: #d4af37 !important;
+}
+
+/* UTENTE ICON + NOME */
+
+.user-dropdown-title {
+  color: #fdf6e3 !important;
+  font-weight: 500;
+}
+
+.user-dropdown-title svg {
+  position: relative;
+  top: 1px;
 }
