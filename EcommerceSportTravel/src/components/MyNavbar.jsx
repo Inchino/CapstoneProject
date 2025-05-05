@@ -51,7 +51,7 @@ function MyNavBar() {
                 {user.role === "Admin" && (
                   <Nav.Link
                     as={NavLink}
-                    to="/admin"
+                    to="/admin/packages"
                     className={({ isActive }) =>
                       isActive ? "link-custom active-link" : "link-custom"
                     }

@@ -1,0 +1,22 @@
+.packages-section {
+    background-color: #05391F;
+  }
+  
+  .packages-title {
+    color: #d4af37;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  
+  .packages-subtitle {
+    color: #d4af37;
+    font-size: 1.3rem;
+  }
+  
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+  

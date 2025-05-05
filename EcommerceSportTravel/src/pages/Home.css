@@ -1,22 +1,32 @@
 .newsletter-btn {
-    background-color: #d4af37;
-    border: none;
-    padding: 0.45rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-block;
-    text-align: center;
-  }
-  
-  .newsletter-btn span {
-    color: #05391F;
-    transition: color 0.3s ease;
-  }
-  
-  .newsletter-btn:hover span {
-    color: #fdf6e3;
-  }
-  
+  background-color: #d4af37;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+}
+
+.newsletter-btn span {
+  color: #05391f;
+  transition: color 0.3s ease;
+}
+
+.newsletter-btn:hover span {
+  color: #fdf6e3;
+}
+
+h2 {
+    color: #d4af37;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+p {
+    color: #d4af37;
+    font-size: 1.3rem;
+}

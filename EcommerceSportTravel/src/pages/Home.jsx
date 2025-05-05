@@ -61,10 +61,10 @@ function Home() {
           style={{ backgroundColor: "#05391F" }}
         >
           <Container>
-            <h2 className="text-center mb-3" style={{ color: "#fdf6e3" }}>
+            <h2 className="text-center mb-3">
               Scopri tutti i pacchetti disponibili
             </h2>
-            <p className="text-center mb-5 text-light">
+            <p className="text-center mb-5">
               Vivi la tua passione per il calcio visitando città incredibili:
               scegli il tuo viaggio ideale!
             </p>
