@@ -1,0 +1,21 @@
+.gold-btn {
+    background-color: #d4af37;
+    border: none;
+    padding: 0.6rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    display: inline-block;
+  }
+  
+  .gold-btn span {
+    color: #05391F;
+    transition: color 0.3s ease;
+  }
+  
+  .gold-btn:hover span {
+    color: #fdf6e3;
+  }
+  
