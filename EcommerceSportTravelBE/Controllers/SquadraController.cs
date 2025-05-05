@@ -1,11 +1,13 @@
 ﻿using EcommerceSportTravelBE.DTOs.Squadra;
 using EcommerceSportTravelBE.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceSportTravelBE.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class SquadraController : ControllerBase
     {
         private readonly SquadraService _squadraService;
@@ -16,6 +18,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<List<SquadraListDto>>> GetAll(int page = 0, int pageSize = 20)
         {
             var result = await _squadraService.GetAllAsync(page, pageSize);
@@ -23,6 +26,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<SquadraReadDto>> GetById(Guid id)
         {
             var result = await _squadraService.GetByIdAsync(id);

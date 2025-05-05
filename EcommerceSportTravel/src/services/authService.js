@@ -1,5 +1,7 @@
+const AUTH_API_URL = "https://localhost:7182/api/Auth"
+
 export async function registerUser(userData) {
-  const response = await fetch("https://localhost:7182/api/Auth/register", {
+  const response = await fetch(`${AUTH_API_URL}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +15,7 @@ export async function registerUser(userData) {
 }
 
 export async function loginUser(loginData) {
-  const response = await fetch("https://localhost:7182/api/Auth/login", {
+  const response = await fetch(`${AUTH_API_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,8 +23,15 @@ export async function loginUser(loginData) {
     body: JSON.stringify(loginData),
   });
 
-  const data = await response.json();
+  const contentType = response.headers.get("content-type");
 
-  if (!response.ok) throw new Error(data || "Errore nel login.");
-  return data.token;
+  if (response.ok) {
+    const data = await response.json();
+    return data.token;
+  } else {
+    const errorText = contentType?.includes("application/json")
+      ? (await response.json())
+      : await response.text();
+    throw new Error(errorText || "Errore nel login.");
+  }
 }

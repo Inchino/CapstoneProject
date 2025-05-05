@@ -1,11 +1,13 @@
 ﻿using EcommerceSportTravelBE.DTOs.Citta;
 using EcommerceSportTravelBE.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceSportTravelBE.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class CittaController : ControllerBase
     {
         private readonly CittaService _cittaService;
@@ -16,6 +18,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<List<CittaListDto>>> GetAll(int page = 0, int pageSize = 10)
         {
             var result = await _cittaService.GetAllAsync(page, pageSize);
@@ -23,6 +26,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<CittaReadDto>> GetById(Guid id)
         {
             var result = await _cittaService.GetByIdAsync(id);

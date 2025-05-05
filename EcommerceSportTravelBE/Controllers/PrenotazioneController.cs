@@ -17,8 +17,8 @@ namespace EcommerceSportTravelBE.Controllers
             _prenotazioneService = prenotazioneService;
         }
 
-        [Authorize]
         [HttpGet("mie")]
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         public async Task<ActionResult<List<PrenotazioneListDto>>> GetMiePrenotazioni()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -32,8 +32,8 @@ namespace EcommerceSportTravelBE.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("{id}")]
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         public async Task<ActionResult<PrenotazioneReadDto>> GetById(Guid id)
         {
             var result = await _prenotazioneService.GetByIdAsync(id);
@@ -41,8 +41,8 @@ namespace EcommerceSportTravelBE.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         public async Task<ActionResult<Guid>> Create(PrenotazioneCreateDto dto)
         {
 
@@ -55,8 +55,8 @@ namespace EcommerceSportTravelBE.Controllers
             return CreatedAtAction(nameof(GetById), new { id }, id);
         }
 
-        [Authorize(Roles = "Admin,SuperAdmin")]
         [HttpPut("{id}")]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Update(Guid id, PrenotazioneUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest("ID della prenotazione non valido.");
@@ -67,8 +67,8 @@ namespace EcommerceSportTravelBE.Controllers
             return NoContent();
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _prenotazioneService.DeleteAsync(id);

@@ -1,11 +1,13 @@
 ﻿using EcommerceSportTravelBE.DTOs.PacchettoViaggio;
 using EcommerceSportTravelBE.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceSportTravelBE.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class PacchettoViaggioController : ControllerBase
     {
         private readonly PacchettoViaggioService _pacchettoService;
@@ -23,6 +25,7 @@ namespace EcommerceSportTravelBE.Controllers
         //}
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Get([FromQuery] Guid? squadraId, int page = 0, int pageSize = 10)
         {
             if (squadraId.HasValue)
@@ -36,6 +39,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<PacchettoViaggioReadDto>> GetById(Guid id)
         {
             var result = await _pacchettoService.GetByIdAsync(id);

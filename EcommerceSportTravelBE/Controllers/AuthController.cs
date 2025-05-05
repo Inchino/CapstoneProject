@@ -17,6 +17,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerDto)
         {
             var result = await _authService.RegisterAsync(registerDto);
@@ -26,6 +27,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginDto)
         {
             var (success, tokenOrMessage) = await _authService.LoginAsync(loginDto);
@@ -35,6 +37,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet("roles")]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> GetRoles()
         {
             var roles = await _authService.GetRolesAsync();
@@ -43,8 +46,8 @@ namespace EcommerceSportTravelBE.Controllers
             return Ok(roles);
         }
 
-        [Authorize(Roles = "Admin,SuperAdmin")]
         [HttpGet("users")]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public async Task<IActionResult> GetUsers(int page = 0, int pageSize = 10)
         {
             var users = await _authService.GetUsersAsync(page, pageSize);
@@ -53,8 +56,8 @@ namespace EcommerceSportTravelBE.Controllers
             return Ok(users);
         }
 
-        [Authorize]
         [HttpGet("me")]
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         public async Task<IActionResult> GetCurrentUser()
         {
             var user = await _authService.GetCurrentUserAsync(User);

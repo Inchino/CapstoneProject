@@ -1,8 +1,8 @@
-const API_URL = 'https://localhost:7182/api/squadra';
+const SQUADRA_API_URL = 'https://localhost:7182/api/squadra';
 
 export async function getSquadraById(id) {
   try {
-    const response = await fetch(`${API_URL}/${id}`);
+    const response = await fetch(`${SQUADRA_API_URL}/${id}`);
     if (!response.ok) throw new Error('Errore nel recupero della squadra');
     return await response.json();
   } catch (error) {
@@ -13,7 +13,7 @@ export async function getSquadraById(id) {
 
 export async function getAllSquadre() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(SQUADRA_API_URL);
     if (!response.ok) throw new Error('Errore nel recupero delle squadre');
     return await response.json();
   } catch (error) {

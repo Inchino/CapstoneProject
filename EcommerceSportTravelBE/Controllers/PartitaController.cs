@@ -1,11 +1,13 @@
 ﻿using EcommerceSportTravelBE.DTOs.Partita;
 using EcommerceSportTravelBE.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceSportTravelBE.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class PartitaController : ControllerBase
     {
         private readonly PartitaService _partitaService;
@@ -16,6 +18,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<List<PartitaListDto>>> GetAll(int page = 0, int pageSize = 10)
         {
             var result = await _partitaService.GetAllAsync(page, pageSize);
@@ -23,6 +26,7 @@ namespace EcommerceSportTravelBE.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<PartitaReadDto>> GetById(Guid id)
         {
             var result = await _partitaService.GetByIdAsync(id);

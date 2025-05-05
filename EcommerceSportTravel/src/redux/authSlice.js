@@ -6,6 +6,13 @@ const token = localStorage.getItem("token");
 const getUserFromToken = (token) => {
   try {
     const decoded = jwtDecode(token);
+    const now = Date.now() / 1000;
+
+    if (decoded.exp && decoded.exp < now) {
+      localStorage.removeItem("token");
+      return null;
+    }
+
     return {
       name: decoded.name || "Utente",
       role: Array.isArray(decoded.role) ? decoded.role[0] : decoded.role,
@@ -16,7 +23,7 @@ const getUserFromToken = (token) => {
 };
 
 const initialState = {
-  token,
+  token: token,
   user: token ? getUserFromToken(token) : null,
 };
 

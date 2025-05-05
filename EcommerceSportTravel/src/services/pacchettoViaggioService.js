@@ -1,4 +1,4 @@
-const API_URL = "https://localhost:7182/api/PacchettoViaggio";
+const PACCHETTO_API_URL = "https://localhost:7182/api/PacchettoViaggio";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
@@ -12,7 +12,7 @@ const getAuthHeaders = () => {
 export const getPacchettiViaggio = async (page = 0, pageSize = 10) => {
   try {
     const res = await fetch(
-      `${API_URL}?page=${page}&pageSize=${pageSize}`,
+      `${PACCHETTO_API_URL}?page=${page}&pageSize=${pageSize}`,
       {
         headers: getAuthHeaders(),
       }
@@ -29,7 +29,7 @@ export const getPacchettiViaggio = async (page = 0, pageSize = 10) => {
 // Dettaglio pacchetto per ID
 export const getPacchettoViaggioById = async (id) => {
   try {
-    const res = await fetch(`${API_URL}/${id}`, {
+    const res = await fetch(`${PACCHETTO_API_URL}/${id}`, {
       headers: getAuthHeaders(),
     });
     if (!res.ok) throw new Error("Errore nel recupero del pacchetto");
@@ -43,7 +43,7 @@ export const getPacchettoViaggioById = async (id) => {
 // Creazione pacchetto
 export const createPacchettoViaggio = async (dto) => {
   try {
-    const res = await fetch(API_URL, {
+    const res = await fetch(PACCHETTO_API_URL, {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify(dto),
@@ -65,7 +65,7 @@ export const updatePacchettoViaggio = async (dto) => {
     if (!dto.id)
       throw new Error("ID mancante per l'aggiornamento del pacchetto");
 
-    const res = await fetch(`${API_URL}/${dto.id}`, {
+    const res = await fetch(`${PACCHETTO_API_URL}/${dto.id}`, {
       method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(dto),
@@ -84,7 +84,7 @@ export const updatePacchettoViaggio = async (dto) => {
 // Eliminazione pacchetto
 export const deletePacchettoViaggio = async (id) => {
   try {
-    const res = await fetch(`${API_URL}/${id}`, {
+    const res = await fetch(`${PACCHETTO_API_URL}/${id}`, {
       method: "DELETE",
       headers: getAuthHeaders(),
     });
@@ -103,15 +103,15 @@ export async function getPacchettiBySquadraId(squadraId) {
       return [];
     }
 
-    const response = await fetch(`${API_URL}?squadraId=${squadraId}`, {
-      headers: getAuthHeaders(), // se serve token
+    const response = await fetch(`${PACCHETTO_API_URL}?squadraId=${squadraId}`, {
+      headers: getAuthHeaders(),
     });
 
     if (!response.ok) throw new Error('Errore nella fetch dei pacchetti viaggio');
     return await response.json();
   } catch (error) {
     console.error('[getPacchettiBySquadraId] Errore:', error);
-    throw error; // oppure return []
+    throw error;
   }
 }
 
