@@ -1,38 +1,85 @@
-import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import './MyFooter.css';
+import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import "./MyFooter.css";
 
 function MyFooter() {
   return (
-    <footer className="footer-custom text-light py-4">
+    <footer className="footer-custom text-light pt-5 pb-3">
       <Container>
-        <Row>
-          <Col md={4} className="mb-3">
-            <h5 className="brand">CALCIO E VIAGGI</h5>
+        <Row className="text-center text-md-start align-items-start">
+          <Col md={4} className="mb-4">
+            <div className="d-flex align-items-center mb-2">
+              <Image
+                src="/GoalAwayLogo.png"
+                alt="GoalAway Logo"
+                height="40"
+                className="me-2"
+              />
+              <h5 className="footer-brand m-0">GoalAway</h5>
+            </div>
             <p className="desc">
-              Pacchetti viaggio che includono il biglietto per la partita di calcio della squadra locale.
+              Vivi la passione del calcio italiano visitando città e stadi unici
+              con pacchetti su misura.
             </p>
           </Col>
 
-          <Col md={4} className="mb-3">
-            <h6 className="section-title">Link Rapidi</h6>
+          <Col md={4} className="mb-4">
+            <h6 className="section-title">Link utili</h6>
             <ul className="list-unstyled">
-              <li><Link to="/" className="footer-link">Home</Link></li>
-              <li><Link to="/packages" className="footer-link">Pacchetti</Link></li>
-              <li><Link to="/login" className="footer-link">Login</Link></li>
-              <li><Link to="/signup" className="footer-link">Registrazione</Link></li>
+              <li>
+                <Link to="/" className="footer-link">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/packages" className="footer-link">
+                  Pacchetti
+                </Link>
+              </li>
+              <li>
+                <Link to="/login" className="footer-link">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/signup" className="footer-link">
+                  Registrati
+                </Link>
+              </li>
             </ul>
           </Col>
 
-          <Col md={4} className="mb-3">
-            <h6 className="section-title">Contatti</h6>
-            <p className="footer-link">📧 info@calcioeviaggi.it</p>
-            <p className="footer-link">📞 +39 012 3456789</p>
-            <p className="footer-link">📘 Facebook &nbsp; 📸 Instagram</p>
+          <Col md={4} className="mb-4">
+            <h6 className="section-title">Newsletter</h6>
+            <Form className="newsletter-form">
+              <Form.Control
+                type="email"
+                placeholder="La tua email"
+                className="mb-2"
+              />
+              <button type="submit" className="newsletter-btn">
+                <span>Iscriviti</span>
+              </button>
+            </Form>
+            <div className="social-icons mt-3">
+              <a href="#" className="footer-icon">
+                <FaFacebookF />
+              </a>
+              <a href="#" className="footer-icon ms-3">
+                <FaInstagram />
+              </a>
+              <a href="#" className="footer-icon ms-3">
+                <FaTwitter />
+              </a>
+            </div>
           </Col>
         </Row>
+
         <hr className="border-light" />
-        <p className="text-center small m-0">© 2024 Calcio e Viaggi</p>
+        <p className="text-center small m-0">
+          © 2025 GoalAway. Tutti i diritti riservati.
+        </p>
       </Container>
     </footer>
   );
