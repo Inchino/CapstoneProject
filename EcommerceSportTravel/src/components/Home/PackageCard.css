@@ -1,6 +1,54 @@
-.card:hover {
-    transform: scale(1.03);
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); /* ombra dorata */
-  }
-  
+.package-card {
+  background-color: #030805;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.package-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.package-img {
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-title-custom {
+  color: #d4af37;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card-text-custom {
+  color: #fdf6e3;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.card-text-custom strong {
+  color: #d4af37;
+}
+
+.newsletter-btn {
+  background-color: #d4af37;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+}
+
+.newsletter-btn span {
+  color: #05391F;
+  transition: color 0.3s ease;
+}
+
+.newsletter-btn:hover span {
+  color: #fdf6e3;
+}

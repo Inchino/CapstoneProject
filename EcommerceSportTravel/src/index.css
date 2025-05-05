@@ -1,7 +1,15 @@
 body {
-  background-color: #0e1a15; /* verde scuro elegante */
-  color: #fdf6e3; /* colore di testo chiaro per coerenza */
+  background-color: #0e1a15;
+  color: #fdf6e3;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+}
+
+.loader-container {
+  min-height: 70vh;
+  background-color: #05391F;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
