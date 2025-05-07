@@ -48,7 +48,7 @@ function MyNavBar() {
 
             {user ? (
               <>
-                {user.role === "Admin" && (
+                {(user.role === "Admin" || user.role === "SuperAdmin") && (
                   <Nav.Link
                     as={NavLink}
                     to="/admin/packages"
