@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Container, Row, Spinner, Alert } from "react-bootstrap";
-import { getSquadraById } from "../services/squadraService";
+import { useParams, useNavigate } from "react-router-dom";
+import { Container, Row, Col, Spinner, Alert, Button } from "react-bootstrap";
 import { getCittaById } from "../services/cittaService";
+import { getSquadraById } from "../services/squadraService";
 import { getPacchettiBySquadraId } from "../services/pacchettoViaggioService";
 import PackageCard from "../components/Home/PackageCard";
+import "./TeamDetail.css";
 
-export default function TeamDetail() {
+const TeamDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [squadra, setSquadra] = useState(null);
   const [citta, setCitta] = useState(null);
   const [pacchetti, setPacchetti] = useState([]);
@@ -43,8 +45,9 @@ export default function TeamDetail() {
 
   if (loading) {
     return (
-      <div className="text-center my-5">
-        <Spinner animation="border" />
+      <div className="text-center my-5 text-light">
+        <Spinner animation="border" variant="light" />
+        <p className="mt-3">Caricamento contenuti...</p>
       </div>
     );
   }
@@ -59,47 +62,56 @@ export default function TeamDetail() {
 
   return (
     <>
-      {/* Banner città */}
       {citta && (
         <div
-          style={{
-            backgroundImage: `url(${citta.immagineUrl})`,
-            height: "300px",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="team-banner"
+          style={{ backgroundImage: `url(${citta.immagineUrl})` }}
         >
-          <div
-            style={{
-              backgroundColor: "rgba(0,0,0,0.5)",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            <h1>
+          <div className="team-banner-overlay">
+            <h1 className="team-banner-title">
               {squadra?.nome} - {citta.nome}
             </h1>
           </div>
         </div>
       )}
 
-      {/* Sezione pacchetti */}
-      <Container className="mt-5">
-        <h2 className="mb-4">Pacchetti disponibili</h2>
-        {pacchetti.length === 0 ? (
-          <p>Nessun pacchetto disponibile per questa squadra.</p>
-        ) : (
-          <Row className="d-flex flex-wrap gap-3 justify-content-center">
-            {pacchetti.map((p) => (
-              <PackageCard key={p.id} pacchetto={p} />
-            ))}
-          </Row>
-        )}
+      <Container>
+        <section className="team-pacchetti-section py-5">
+          <Container
+            className="rounded-4 shadow p-4"
+            style={{ backgroundColor: "#05391F" }}
+          >
+            <h2 className="text-center text-warning mb-4">
+              Pacchetti disponibili
+            </h2>
+            {pacchetti.length === 0 ? (
+              <p className="text-center text-light">
+                Al momento non ci sono pacchetti disponibili per questa squadra.
+                Torna presto!
+              </p>
+            ) : (
+              <Row>
+                {pacchetti.map((p) => (
+                  <Col key={p.id} xs={12} md={6} lg={4} className="mb-4">
+                    <PackageCard pacchetto={p} />
+                  </Col>
+                ))}
+              </Row>
+            )}
+            <div className="text-center mt-4">
+              <Button
+                variant="warning"
+                className="gold-btn"
+                onClick={() => navigate("/packages")}
+              >
+                <span>Esplora tutti i pacchetti</span>
+              </Button>
+            </div>
+          </Container>
+        </section>
       </Container>
     </>
   );
-}
+};
+
+export default TeamDetail;
