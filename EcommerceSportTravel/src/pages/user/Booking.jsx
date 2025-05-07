@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Form, Button, Alert, Card } from "react-bootstrap";
+import { Form, Alert, Card, Container } from "react-bootstrap";
 import { creaPrenotazione } from "../../services/prenotazioneService";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import "./Booking.css";
 
 const Booking = () => {
   const { pacchettoId } = useParams();
@@ -42,47 +43,70 @@ const Booking = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">Prenota il tuo pacchetto</h2>
-      {errore && <Alert variant="danger">{errore}</Alert>}
-      <Form onSubmit={handleSubmit} aria-label="Modulo prenotazione pacchetto">
-        <Form.Group controlId="partecipanti" className="mb-3">
-          <Form.Label>Numero Partecipanti</Form.Label>
-          <Form.Control
-            type="number"
-            min={1}
-            max={10}
-            required
-            value={numeroPartecipanti}
-            onChange={(e) => {
-              const val = parseInt(e.target.value, 10);
-              setNumeroPartecipanti(isNaN(val) ? 1 : val);
-            }}
-          />
-        </Form.Group>
+    <Container>
+      <section className="py-5 mb-5 mt-5 rounded-4 shadow booking-section">
+        <Container className="d-flex justify-content-center">
+          <div style={{ maxWidth: "600px", width: "100%" }}>
+            <h2 className="text-center mb-4 booking-title">
+              Prenota il tuo pacchetto
+            </h2>
+            {errore && <Alert variant="danger">{errore}</Alert>}
 
-        <Card.Text className="text-info fs-5 mb-3">
-          Prezzo totale: <strong>€{(prezzo * numeroPartecipanti).toFixed(2)}</strong>
-        </Card.Text>
+            <Card
+              className="border-0 rounded-4 p-4"
+              style={{ backgroundColor: "#030805" }}
+            >
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                  <Form.Label className="text-crema">
+                    Numero Partecipanti
+                  </Form.Label>
+                  <Form.Control
+                    className="form-crema"
+                    type="number"
+                    min={1}
+                    max={10}
+                    value={numeroPartecipanti}
+                    onChange={(e) =>
+                      setNumeroPartecipanti(
+                        Math.max(1, parseInt(e.target.value) || 1)
+                      )
+                    }
+                  />
+                </Form.Group>
 
-        <Form.Group controlId="metodoPagamento" className="mb-4">
-          <Form.Label>Metodo di Pagamento</Form.Label>
-          <Form.Select
-            required
-            value={metodoPagamento}
-            onChange={(e) => setMetodoPagamento(e.target.value)}
-          >
-            <option>Carta di Credito</option>
-            <option>PayPal</option>
-            <option>Bonifico Bancario</option>
-          </Form.Select>
-        </Form.Group>
+                <div className="fs-5 text-center mb-4 text-crema">
+                  Prezzo totale:{" "}
+                  <strong>€{(prezzo * numeroPartecipanti).toFixed(2)}</strong>
+                </div>
 
-        <Button variant="primary" type="submit" className="fw-bold">
-          Prenota ora
-        </Button>
-      </Form>
-    </div>
+                <Form.Group className="mb-4">
+                  <Form.Label className="text-crema">
+                    Metodo di Pagamento
+                  </Form.Label>
+                  <Form.Select
+                    className="form-crema"
+                    value={metodoPagamento}
+                    style={{ backgroundColor: "#030805" }}
+                    onChange={(e) => setMetodoPagamento(e.target.value)}
+                  >
+                    <option>Carta di Credito</option>
+                    <option>PayPal</option>
+                    <option>Bonifico Bancario</option>
+                  </Form.Select>
+                </Form.Group>
+
+                <div className="text-center">
+                  <button type="submit" className="gold-btn">
+                    <span>Prenota ora</span>
+                  </button>
+                </div>
+              </Form>
+            </Card>
+          </div>
+        </Container>
+      </section>
+    </Container>
   );
 };
 

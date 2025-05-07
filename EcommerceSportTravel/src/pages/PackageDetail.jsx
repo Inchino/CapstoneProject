@@ -82,7 +82,7 @@ const PackageDetail = () => {
                   className="d-flex flex-column justify-content-center p-4 rounded-end-4"
                 >
                   <Card.Body>
-                    <Card.Title className="fs-2 text-warning mb-3">
+                    <Card.Title className="fs-2 text-warning text-center mb-3">
                       {pacchetto.titolo}
                     </Card.Title>
                     <Card.Text className="mb-2">
@@ -109,7 +109,7 @@ const PackageDetail = () => {
                         €{pacchetto.prezzo.toFixed(2)}
                       </span>
                     </Card.Text>
-                    <Card.Text className="mb-4" style={{ color: "#fdf6e3" }}>
+                    <Card.Text className="mb-4 text-center" style={{ color: "#fdf6e3" }}>
                       {pacchetto.descrizione}
                     </Card.Text>
                     <button className="gold-btn" onClick={handlePrenota}>

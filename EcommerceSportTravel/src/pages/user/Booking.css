@@ -1,0 +1,44 @@
+.booking-section {
+    background-color: #05391F;
+  }
+  
+  .booking-title {
+    color: #d4af37;
+  }
+  
+  .gold-btn {
+    background-color: #d4af37;
+    border: none;
+    padding: 0.6rem 2rem;
+    font-weight: 600;
+    color: #05391F;
+    border-radius: 6px;
+    transition: color 0.3s ease;
+  }
+  
+  .gold-btn:hover span {
+    color: #fdf6e3;
+  }
+  
+  .text-crema {
+    color: #fdf6e3 !important;
+  }
+  
+  .form-crema {
+    background-color: transparent;
+    border: 1px solid #fdf6e3;
+    color: #fdf6e3;
+  }
+  
+  .form-crema::placeholder {
+    color: #fdf6e3;
+    opacity: 0.6;
+  }
+  
+  .form-crema:focus {
+    background-color: transparent;
+    border-color: #d4af37;
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+    color: #fdf6e3;
+  }
+  
