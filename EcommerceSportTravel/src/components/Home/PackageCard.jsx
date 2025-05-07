@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./PackageCard.css";
 
-const PackageCard = ({ pacchetto }) => {
+const PackageCard = ({ pacchetto, buttonLabel = "Scopri di più" }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -31,7 +31,7 @@ const PackageCard = ({ pacchetto }) => {
           <strong>Città:</strong> {pacchetto.cittaNome}
         </Card.Text>
         <button type="button" className="newsletter-btn mt-auto mb-3">
-          <span>Scopri di più</span>
+          <span>{buttonLabel}</span>
         </button>
       </Card.Body>
     </Card>
