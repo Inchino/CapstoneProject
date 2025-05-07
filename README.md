@@ -121,3 +121,9 @@ npm run dev
 - Sezione news/eventi sportivi.
 - Sezione Serie B.
 
+---
+
+## 📄 Licenza
+
+Questo progetto è distribuito sotto licenza **MIT**. Vedi il file [LICENSE](./LICENSE) per maggiori dettagli.
+
