@@ -114,7 +114,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-//Creazione Ruoli
+//Creazione Ruoli + Seed
 await using (var scope = app.Services.CreateAsyncScope())
 {
     var services = scope.ServiceProvider;
@@ -131,7 +131,10 @@ await using (var scope = app.Services.CreateAsyncScope())
             await roleManager.CreateAsync(new ApplicationRole { Name = role });
         }
     }
+
+    await SeedData.InitializeAsync(services);
 }
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -19,7 +19,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const ID_PACCHETTO_DEL_GIORNO = "CEB43D8C-9069-478D-B4CF-89D5AD8F3DD1";
+  const ID_PACCHETTO_DEL_GIORNO = "324A29BC-9EFD-4A13-BA01-59EC412C9896";
 
   useEffect(() => {
     const fetchData = async () => {
