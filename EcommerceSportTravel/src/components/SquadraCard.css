@@ -3,7 +3,6 @@
     min-height: 250px;
     flex-shrink: 0;
     border-radius: 15px;
-    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,5 +26,9 @@
     max-width: 100px;
     object-fit: contain;
     margin-bottom: 0.5rem;
+  }
+
+  .text-cream{
+    color: #FDF6E3;
   }
   
