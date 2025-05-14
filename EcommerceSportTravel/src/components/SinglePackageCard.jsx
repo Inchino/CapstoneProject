@@ -13,8 +13,8 @@ const SinglePackageCard = ({ pacchetto, onEdit, onDelete }) => {
       />
       <Card.Body>
         <Card.Title>{pacchetto.titolo}</Card.Title>
-        <Card.Text><em>{pacchetto.descrizione}</em></Card.Text>
-        <Card.Text>
+        <Card.Text className="text-black"><em>{pacchetto.descrizione}</em></Card.Text>
+        <Card.Text className="text-black">
           <strong>Partita:</strong> {pacchetto.partitaDescrizione}<br />
           <strong>Città:</strong> {pacchetto.cittaNome}<br />
           <strong>Durata:</strong> {pacchetto.durataInGiorni} giorni<br />
@@ -22,10 +22,10 @@ const SinglePackageCard = ({ pacchetto, onEdit, onDelete }) => {
           <strong>Prezzo:</strong> € {pacchetto.prezzo.toFixed(2)}
         </Card.Text>
         <div className="d-flex justify-content-between mt-3">
-          <Button variant="outline-primary" onClick={() => onEdit(pacchetto)}>
+          <Button variant="outline-primary m-1" onClick={() => onEdit(pacchetto)}>
             Modifica
           </Button>
-          <Button variant="danger" onClick={() => onDelete(pacchetto.id)}>
+          <Button variant="danger m-1" onClick={() => onDelete(pacchetto.id)}>
             Elimina
           </Button>
         </div>
