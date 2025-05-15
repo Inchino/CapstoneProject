@@ -125,5 +125,5 @@ npm run dev
 
 ## 📄 Licenza
 
-Questo progetto è distribuito sotto licenza **MIT**. Vedi il file [LICENSE](./LICENSE) per maggiori dettagli.
+Questo progetto è distribuito sotto licenza **MIT**. Vedi il file [LICENSE](./License) per maggiori dettagli.
 
